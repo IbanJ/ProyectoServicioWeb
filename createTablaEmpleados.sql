@@ -1,0 +1,1 @@
+select EmployeeID,firstname, lastname, country INTO empleados FROM northwind.dbo.employees 

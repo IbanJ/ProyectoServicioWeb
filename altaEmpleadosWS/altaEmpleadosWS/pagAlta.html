@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btRecupEmpleados').click(function () {
+                $.ajax({
+                    url: 'servicioEmpleado.asmx/recEmpleados',
+                    method: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        var tablaEmpleados = $('#tablaEmpleados tbody');
+
+                        $(data).each(function (index, emp) {
+                            tablaEmpleados.append('<tr><td>' + emp.Codigo + '</td><td>'
+                                + emp.Nombre + '</td><td>'
+                                + emp.LastName + '</td><td>'
+                                + emp.Country + '</td></tr>');
+                        })
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <h1>Datos de empleados</h1>
+    <hr />
+    <input type="button" value="Recuperar datos de todos los empleados" id="btRecupEmpleados">
+    <table id="tablaEmpleados" border="1" style="border-collapse:collapse">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>País</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <hr />
+    <div id="salida"></div>
+</body>
+</html>
