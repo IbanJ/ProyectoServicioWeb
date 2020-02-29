@@ -6,20 +6,24 @@
     <script src="jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#btRecupEmpleados').click(function () {
+            $('#btRecEmpleado').click(function () {
+                var codigo = $('#txtCodEmpleado').val();
+
                 $.ajax({
-                    url: 'servicioEmpleado.asmx/recEmpleados',
+                    url: 'servicioAlta.asmx/altaEmpleado',
+                    data: {
+                        codEmpleado: codigo, firstname: txtNombre, lastname: txtApellido,
+                    country: txtPais},
                     method: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        var tablaEmpleados = $('#tablaEmpleados tbody');
-
-                        $(data).each(function (index, emp) {
-                            tablaEmpleados.append('<tr><td>' + emp.Codigo + '</td><td>'
-                                + emp.Nombre + '</td><td>'
-                                + emp.LastName + '</td><td>'
-                                + emp.Country + '</td></tr>');
-                        })
+                        //var jqueryXml = $(data);
+                        if (data.salida != 0) {
+                            $('#salida').text("El empleado ha sido dado de alta correctamente");
+                        }
+                        else {
+                            $('#salida').text("El empleado ya existe");
+                        }                  
                     },
                     error: function (err) {
                         alert(err.responseText);
@@ -30,24 +34,18 @@
 
     </script>
 </head>
-<body>
-    <h1>Datos de empleados</h1>
-    <hr />
-    <input type="button" value="Recuperar datos de todos los empleados" id="btRecupEmpleados">
-    <table id="tablaEmpleados" border="1" style="border-collapse:collapse">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>País</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+<body>    
+        <h1>Datos de empleados</h1>
+        <hr />
+        Código de empleado <input type="text" id="txtCodEmpleado" />
+        <input type="button" value="Recuperar datos" id="btRecEmpleado">
+        <table border="1">
+            <tr><td>Nombre</td><td><input id="txtNombre" type="text" /></td></tr>
+            <tr><td>Apellido</td><td><input id="txtApellido" type="text" /></td></tr>
+            <tr><td>País</td><td><input id="txtPais" type="text" /></td></tr>
+        </table>
 
-    <hr />
-    <div id="salida"></div>
+        <hr />
+        <div id="salida"></div>
 </body>
 </html>
