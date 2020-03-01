@@ -11,6 +11,7 @@ namespace altaEmpleadosWS
         private string _Nombre;
         private string _LastName;
         private string _Country;
+        private int _Salida;
 
         public int Codigo
         {
@@ -34,6 +35,12 @@ namespace altaEmpleadosWS
         {
             get { return _Country; }
             set { _Country = value; }
+        }
+
+        public int Salida
+        {
+            get { return _Salida; }
+            set { _Salida = value; }
         }
     }
 }

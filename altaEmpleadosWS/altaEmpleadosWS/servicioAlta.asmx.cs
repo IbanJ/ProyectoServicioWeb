@@ -37,43 +37,47 @@ namespace altaEmpleadosWS
                 SqlParameter prmCountry = new SqlParameter();
                 SqlParameter prmSalida = new SqlParameter();
 
-                prmCodigo.ParameterName = "@p_employeeID";  // NO LO PUSE
+                prmCodigo.ParameterName = "@p_employeeID"; 
                 prmCodigo.SqlDbType = SqlDbType.Int;
                 prmCodigo.Value = codEmpleado;
                 prmCodigo.Direction = ParameterDirection.Input;
                 cmdAltaEmpleado.Parameters.Add(prmCodigo);
 
-                prmFirstname.ParameterName = "@p_firstname";  // NO LO PUSE
-                prmFirstname.SqlDbType = SqlDbType.varchar(10);
+                prmFirstname.ParameterName = "@p_firstname";
+                prmFirstname.SqlDbType = SqlDbType.NVarChar;
+                prmFirstname.Size = 10;
                 prmFirstname.Value = firstname;
                 prmFirstname.Direction = ParameterDirection.Input;
                 cmdAltaEmpleado.Parameters.Add(prmFirstname);
 
-                prmLastname.ParameterName = "@p_lastname";  // NO LO PUSE
-                prmLastname.SqlDbType = SqlDbType.varchar(20);
+                prmLastname.ParameterName = "@p_lastname"; 
+                prmLastname.SqlDbType = SqlDbType.NVarChar;
+                prmFirstname.Size = 20;
                 prmLastname.Value = lastname;
                 prmLastname.Direction = ParameterDirection.Input;
                 cmdAltaEmpleado.Parameters.Add(prmLastname);
 
-                prmCountry.ParameterName = "@p_country";  // NO LO PUSE
-                prmCountry.SqlDbType = SqlDbType.varchar(15);
+                prmCountry.ParameterName = "@p_country"; 
+                prmCountry.SqlDbType = SqlDbType.NVarChar;
+                prmFirstname.Size = 15;
                 prmCountry.Value = country;
                 prmCountry.Direction = ParameterDirection.Input;
                 cmdAltaEmpleado.Parameters.Add(prmCountry);
 
-                prmSalida.ParameterName = "@p_salida";  // NO LO PUSE
-                prmSalida.SqlDbType = SqlDbType.smallint;
+                prmSalida.ParameterName = "@p_salida"; 
+                prmSalida.SqlDbType = SqlDbType.SmallInt;
+                // value a 0 igual mejor
                 prmSalida.Direction = ParameterDirection.Output;
                 cmdAltaEmpleado.Parameters.Add(prmSalida);
 
 
-
+                //try
                 conex.Open();
+
                 SqlDataReader lector = cmdAltaEmpleado.ExecuteReader();
-                while (lector.Read())
-                {
-                    alta.Salida = Convert.ToInt32(lector["salida"]);
-                }
+                //catch
+                alta.Salida = Convert.ToInt32(prmSalida.Value);
+                
             }
 
             JavaScriptSerializer js = new JavaScriptSerializer();

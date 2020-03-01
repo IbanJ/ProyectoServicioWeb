@@ -3,22 +3,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="jquery-1.11.0.min.js"></script>
+    <script src="Scripts/jquery-3.4.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#btRecEmpleado').click(function () {
-                var codigo = $('#txtCodEmpleado').val();
-
+            $('#btAltaEmpleado').click(function () {
+                var codigo = $('#txtCodEmpleado').val(); 
+                var nombre = $('#txtNombre').val();
+                var apellido = $('#txtApellido').val();
+                var pais = $('#txtPais').val();
                 $.ajax({
                     url: 'servicioAlta.asmx/altaEmpleado',
                     data: {
-                        codEmpleado: codigo, firstname: txtNombre, lastname: txtApellido,
-                    country: txtPais},
+                        codEmpleado: codigo, firstname: nombre, lastname: apellido,
+                    country: pais},
                     method: 'post',
                     dataType: 'json',
                     success: function (data) {
                         //var jqueryXml = $(data);
-                        if (data.salida != 0) {
+                        if (data.Salida == 1) {
                             $('#salida').text("El empleado ha sido dado de alta correctamente");
                         }
                         else {
@@ -35,16 +37,15 @@
     </script>
 </head>
 <body>    
-        <h1>Datos de empleados</h1>
+        <h1>Datos de empleadossssssssssss</h1>
         <hr />
         Código de empleado <input type="text" id="txtCodEmpleado" />
-        <input type="button" value="Recuperar datos" id="btRecEmpleado">
         <table border="1">
             <tr><td>Nombre</td><td><input id="txtNombre" type="text" /></td></tr>
             <tr><td>Apellido</td><td><input id="txtApellido" type="text" /></td></tr>
             <tr><td>País</td><td><input id="txtPais" type="text" /></td></tr>
         </table>
-
+        <input type="button" value="Dar de alta" id="btAltaEmpleado">
         <hr />
         <div id="salida"></div>
 </body>
